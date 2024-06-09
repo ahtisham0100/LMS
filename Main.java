@@ -3,14 +3,22 @@ package LMS;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
- class passwords extends HashMap {
 
-public ArrayList<String> booklist = new ArrayList<>();
+class passwords extends HashMap {
+
+   public ArrayList<String> booklist = new ArrayList<>();
    private HashMap<String,String>  admin;
-    private  HashMap<String,String> student;
-Boolean loogingin;
+   private  HashMap<String,String> student;
+   Boolean loogingin;
 
+   ArrayList<String> TimelyReturned = new ArrayList<>();
+
+public  void addtoTimelyRetuned(String s ){
+    TimelyReturned.add(s);
+
+}
+
+   //contructor
     passwords() {
         admin = new HashMap<>();
         student = new HashMap<>();
@@ -58,7 +66,7 @@ Boolean loogingin;
 
     public void authenticateStudent(String key, String password){
         if (student.containsKey(key)&&student.containsValue(password)){
-            Student studentobj = new Student(key,password,booklist);
+            Student studentobj = new Student(key,password,booklist,TimelyReturned);
             JOptionPane.showMessageDialog(null,"login successful as student ","login",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null,"Enter correct credentials","login erroe",JOptionPane.ERROR_MESSAGE);
@@ -67,7 +75,7 @@ Boolean loogingin;
      public void authenticateAdmin(String key, String password){
          if (admin.containsKey(key)&&admin.containsValue(password)){
            JOptionPane.showMessageDialog(null,"login successful as admin" ,"login",JOptionPane.INFORMATION_MESSAGE);
-             Student student = new Student(key,password,booklist);
+             new Admin(this);
 
          } else {
              JOptionPane.showMessageDialog(null,"Enter correct credentials","login erroe",JOptionPane.ERROR_MESSAGE);
@@ -76,10 +84,16 @@ Boolean loogingin;
 }
 
 
-
+//initialzied this class inside loging frame to  authentocate   not limimted to student login though name is student login
 class studentlogin extends passwords {
     String user, password;
     Boolean loogingin;
+
+    ArrayList<String> TimelyRetunedBooks = new ArrayList<>();
+
+public void addtoTimelyReturned (String s ){
+
+}
 
     studentlogin(String user, String password, Boolean loogingin) {
         this.loogingin = loogingin;
@@ -100,10 +114,29 @@ class studentlogin extends passwords {
         }
     }
 
+
 class Student extends passwords{
      String name ,course , rank , id ;
+    ArrayList<String> issuedBooks =  new ArrayList();
+    ArrayList<String> Bookhistory =  new ArrayList();
 
-      Student(String user, String password, ArrayList booklist){
+    public void AddToIssuedlist(String s ){
+        issuedBooks.add(s) ;
+
+    }
+
+    public void removeFromIssedList(){
+        issuedBooks.remove(this) ;
+    }
+
+    public void AddtoBookHistory(String book){
+        Bookhistory.add(book);
+    }
+
+
+
+
+      Student(String user, String password, ArrayList booklist, ArrayList<String> timelyReturned){
           passwords a = new passwords();
 
           if ( user.equals("ahtisham")&&password.equals("ahtisham123")){
@@ -111,13 +144,13 @@ class Student extends passwords{
                       this.course= "BESE-29C";
                       this.rank ="NC";
                               this.id ="460540";
-          new StudentFirstFrame(this.name,this.rank, this.id, this.course , booklist);
+          new StudentFirstFrame(this.name,this.rank, this.id, this.course , booklist , issuedBooks,Bookhistory ,TimelyReturned);
           } else {
               this.name="Muhammad Saad";
               this.course= "BEIS-4";
               this.rank ="PC";
               this.id ="12014";
-              new StudentFirstFrame(this.name,this.rank, this.id, this.course,booklist);
+              new StudentFirstFrame(this.name,this.rank, this.id, this.course,booklist,issuedBooks,Bookhistory, TimelyReturned);
           }
       }
 }

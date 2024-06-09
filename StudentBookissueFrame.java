@@ -11,12 +11,18 @@ public class StudentBookissueFrame extends JFrame implements ActionListener {
     private DefaultListModel<String> listModel;
     private JList<String> bookList;
     private JButton issueBookButton;
+    private ArrayList<String> borrowedBooks; // List to store borrowed books
+    private ArrayList<String> timelyReturned; // Reference to the timelyReturned list
 
-    StudentBookissueFrame(ArrayList<String> bookList ) {
+    // Constructor now accepts available books, borrowed books, and timelyReturned
+    StudentBookissueFrame(ArrayList<String> bookList, ArrayList<String> borrowedBooks, ArrayList<String> timelyReturned) {
         this.setTitle("Library Book List");
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(400, 300);
         this.setLayout(new BorderLayout());
+
+        this.borrowedBooks = borrowedBooks; // Initialize borrowedBooks
+        this.timelyReturned = timelyReturned; // Initialize timelyReturned
 
         // Create a list model and add books to it
         listModel = new DefaultListModel<>();
@@ -46,12 +52,20 @@ public class StudentBookissueFrame extends JFrame implements ActionListener {
         int selectedIndex = bookList.getSelectedIndex();
         if (selectedIndex != -1) {
             String selectedBook = bookList.getSelectedValue();
+            // Add the selected book to the borrowedBooks list
+            borrowedBooks.add(selectedBook);
             JOptionPane.showMessageDialog(this,
                     "You have issued: " + selectedBook,
                     "Book Issued",
                     JOptionPane.INFORMATION_MESSAGE);
 
+            // Remove the issued book from the available books list
             listModel.remove(selectedIndex);
+
+            // Update the timelyReturned list
+            timelyReturned.add(selectedBook);  // Modify the timelyReturned list
+
+            // Dispose the frame after issuing the book
             this.dispose();
 
         } else {
@@ -60,11 +74,5 @@ public class StudentBookissueFrame extends JFrame implements ActionListener {
                     "No Book Selected",
                     JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    public static void main(String[] args) {
-        ArrayList<String> books = new ArrayList<>();
-
-      //  new StudentBookissueFrame(books);
     }
 }

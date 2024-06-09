@@ -32,18 +32,23 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     private void initComponents(JPanel panel) {
         JLabel jLabel1 = new JLabel("Library");
-        jLabel1.setFont(new Font("Calibri", Font.BOLD, 18));
+        jLabel1.setFont(new Font("Calibri", Font.BOLD, 24));
         jLabel1.setBounds(50, 150, 200, 30);
+        jLabel1.setForeground(new Color(0xFFFF14));
         panel.add(jLabel1);
 panel.setBackground(new Color(0x666696));
+panel.setOpaque(true);
+panel.setVisible(true);
         JLabel jLabel2 = new JLabel("Management");
-        jLabel2.setFont(new Font("Calibri", Font.BOLD, 18));
+        jLabel2.setFont(new Font("Calibri", Font.BOLD, 24));
         jLabel2.setBounds(50, 200, 200, 30);
+        jLabel2.setForeground(new Color(0xffff14));
         panel.add(jLabel2);
 
         JLabel jLabel3 = new JLabel("System");
-        jLabel3.setFont(new Font("Calibri", Font.BOLD, 18));
+        jLabel3.setFont(new Font("Calibri", Font.BOLD, 24));
         jLabel3.setBounds(50, 250, 200, 30);
+        jLabel3.setForeground(new Color(0xFFFF14));
         panel.add(jLabel3);
 
         JLabel jLabel5 = new JLabel("Username:");
@@ -56,6 +61,8 @@ panel.setBackground(new Color(0x666696));
 
         JLabel jLabel6 = new JLabel("Password:");
         jLabel6.setBounds(300, 200, 100, 30);
+        jLabel5.setForeground(Color.white);
+        jLabel6.setForeground(Color.white);
         panel.add(jLabel6);
 
         passwordField = new JPasswordField();
@@ -64,6 +71,7 @@ panel.setBackground(new Color(0x666696));
 
         JLabel jLabel7 = new JLabel("Check if student:");
         jLabel7.setBounds(300, 250, 100, 30);
+        jLabel7.setForeground(Color.white);
         panel.add(jLabel7);
 
         radioButton = new JRadioButton("I'm a student");
@@ -73,6 +81,10 @@ panel.setBackground(new Color(0x666696));
 
         loginButton = new JButton("Login");
         loginButton.setBounds(400, 300, 100, 30);
+        loginButton.setFocusable(false);
+        loginButton.setBackground(new Color(0xAB655D));
+        loginButton.setFont(new Font("Arial",1,18));
+        loginButton.setForeground(new Color(0xFAC71D));
         loginButton.addActionListener(this);
         panel.add(loginButton);
 
